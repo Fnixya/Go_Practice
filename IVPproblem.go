@@ -8,22 +8,6 @@ import (
 )
 
 // IVPproblem is a struct that represents an initial value problem with function u' = f(u, t) and initial value u0 at time t0.
-type IVPproblem struct {
-	u0, t0, t1, k float64
-	f             func(u, t float64) float64
-}
-
-func (ivp IVPproblem) forwardEuler() []float64 {
-	N := int((ivp.t1-ivp.t0)/ivp.k) + 1
-	y := make([]float64, N)
-
-	y[0] = ivp.u0
-	for i := 1; i < N; i++ {
-		y[i] = y[i-1] + ivp.k*ivp.f(y[i-1], ivp.t0+float64(i-1)*ivp.k)
-	}
-
-	return y
-}
 
 func (ivp IVPproblem) midpointRK2() []float64 {
 	N := int((ivp.t1-ivp.t0)/ivp.k) + 1
